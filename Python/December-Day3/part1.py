@@ -3,8 +3,6 @@ class Graph:
         self.graph = {}
 
     def make_graph_from_table(self, table: iter) -> None:
-        def cord_to_index(x, y, len_row):
-            return (y * len_row) + x
 
         for y, row in enumerate(table):
             for x, char in enumerate(row):
