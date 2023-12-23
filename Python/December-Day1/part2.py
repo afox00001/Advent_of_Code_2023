@@ -9,7 +9,7 @@ def find_all(a_str, sub):
         yield start
         start += len(sub)
 
-with open("input.txt", "r") as inputFile:
+with open("../December-Day1-Part2/input.txt", "r") as inputFile:
     addedSum = 0
     for line in inputFile.read().lower().split("\n"):
         number = {}
@@ -30,8 +30,6 @@ with open("input.txt", "r") as inputFile:
         number_as_str = ""
         for i in number:
             number_as_str += number[i]
-
-        print(number)
         addedSum += int(number_as_str[0] + number_as_str[-1])
 
     print(addedSum)
