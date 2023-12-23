@@ -2,7 +2,7 @@ class Graph:
     def __init__(self):
         self.graph = {}
 
-    def make_graph_from_table(self, table):
+    def make_graph_from_table(self, table: iter) -> None:
         def cord_to_index(x, y, len_row):
             return (y * len_row) + x
 
@@ -21,45 +21,49 @@ class Graph:
                                     bottom_right, (x, y)]
 
 
-def does_cell_meet_criteria(cell, graph):
+def does_cell_meet_criteria(cell: iter, graph: iter) -> bool:
     special_chars_in_criteria = "!@#$%^&*()_-=+/\\"
     if cell[0].isdigit():
         for i in range(1, 9):
-            if cell[i][0] != None and cell[i][1] != None:
+            if cell[i][0] is not None and cell[i][1] is not None:
                 if graph.graph[(char[i][0], char[i][1])][0] in special_chars_in_criteria:
                     return True
     return False
 
 
-table = []
-part_number_codes_sum = 0
-with open("input.txt", "r") as inputFile:
-    for line in inputFile.readlines():
-        current_line = []
-        current_number = ""
-        for char in line:
-            if char == " " or char == "\n":
-                continue
-            current_line.append(char)
-        table.append(current_line)
-numbers = []
-graph = Graph()
-graph.make_graph_from_table(table)
-current_number = ""
-meets_criteria = False
-for key, char in graph.graph.items():
-    if char[0].isdigit():
-        current_number += char[0]
-        if does_cell_meet_criteria(char, graph):
-            meets_criteria = True
-    elif meets_criteria:
-        numbers.append(current_number)
-        current_number = ""
-        meets_criteria = False
-    else:
-        current_number = ""
+if __name__ == "__main__":
+    table = []
+    part_number_codes_sum = 0
+    with open("input.txt", "r") as inputFile:
+        for line in inputFile.readlines():
+            current_line = []
+            current_number = ""
+            for char in line:
+                if char == " " or char == "\n":
+                    continue
+                current_line.append(char)
+            table.append(current_line)
 
-for number in numbers:
-    part_number_codes_sum += int(number)
+    numbers = []
 
-print(part_number_codes_sum)
+    graph = Graph()
+    graph.make_graph_from_table(table)
+
+    current_number = ""
+    meets_criteria = False
+    for key, char in graph.graph.items():
+        if char[0].isdigit():
+            current_number += char[0]
+            if does_cell_meet_criteria(char, graph):
+                meets_criteria = True
+        elif meets_criteria:
+            numbers.append(current_number)
+            current_number = ""
+            meets_criteria = False
+        else:
+            current_number = ""
+
+    for number in numbers:
+        part_number_codes_sum += int(number)
+
+    print(part_number_codes_sum)
