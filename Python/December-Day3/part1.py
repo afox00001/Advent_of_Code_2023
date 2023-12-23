@@ -3,7 +3,6 @@ class Graph:
         self.graph = {}
 
     def make_graph_from_table(self, table: iter) -> None:
-
         for y, row in enumerate(table):
             for x, char in enumerate(row):
                 left = x - 1, y if x > 0 else None
