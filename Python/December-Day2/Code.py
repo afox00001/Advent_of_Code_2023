@@ -30,7 +30,7 @@ with open("input.txt", "r") as inputFile:
         number_as_str = ""
         for i in number:
             number_as_str += number[i]
-            
+
         print(number)
         addedSum += int(number_as_str[0] + number_as_str[-1])
 
