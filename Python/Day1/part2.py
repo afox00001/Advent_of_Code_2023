@@ -21,7 +21,6 @@ if __name__ == "__main__":
                 if digit in line:
                     index = find_all(line, digit)
                     for i in index:
-                        # print(digit)
                         number[i] = str(words_to_numbers_lookup_dict[digit])
             for i, character in enumerate(line):
                 if character.isdigit():
