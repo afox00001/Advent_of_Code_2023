@@ -6,17 +6,22 @@ class Map:
 
         self.dest_list = []
         self.src_list = []
+
     def enumerate_lists_from_ranges(self):
         pass
-for i in range(0,10):
+
+
+for i in range(0, 10):
     print(i)
+
+
 def line_to_list_of_map_ranges(line):
-    #print(line)
+    # print(line)
     line = line.split(" ")
-    list_of_map_ranges = []
+    list_of_maps = []
     i = 0
     map = Map()
-    #print(line)
+    # print(line)
     for arg in line:
         if arg == "" or arg == "\n" or arg == " ":
             continue
@@ -26,14 +31,12 @@ def line_to_list_of_map_ranges(line):
             map.src_start = int(arg)
         elif i == 2:
             map.range = int(arg)
-            list_of_map_ranges.append(map)
+            list_of_maps.append(map)
             map = Map()
             i = 0
             continue
         i += 1
-    return list_of_map_ranges
-
-
+    return list_of_maps
 
 
 with open("input.txt", "r") as input_file:
@@ -47,9 +50,9 @@ with open("input.txt", "r") as input_file:
             elif y == " " or y == "\n":
                 new_line += " "
         lines.append(new_line)
-        #print(new_line)
-        #print()
-    #print(lines)
+        # print(new_line)
+        # print()
+    # print(lines)
     seeds = line_to_list_of_map_ranges(lines[1])
     seed_soil = line_to_list_of_map_ranges(lines[2])
     soil_fertilizer = line_to_list_of_map_ranges(lines[3])
@@ -60,4 +63,3 @@ with open("input.txt", "r") as input_file:
     humidity_location = line_to_list_of_map_ranges(lines[8])
 
     print(seeds[0].dest_start)
-
