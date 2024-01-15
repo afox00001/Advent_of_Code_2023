@@ -4,7 +4,7 @@ class Map:
         self.src_start = None
 
 
-def line_to_list_of_map_ranges(line):
+def line_to_list_of_map_ranges(line: str) -> iter:
     line = line.split(" ")
     list_of_maps = []
     i = 0
@@ -26,8 +26,8 @@ def line_to_list_of_map_ranges(line):
     return list_of_maps
 
 
-def map_src_list_to_dest_list(src_list, maps):
-    def get_destination_from_map_and_obj(map, obj):
+def map_src_list_to_dest_list(src_list: iter, maps: iter) -> iter:
+    def get_destination_from_map_and_obj(map: Map, obj: int) -> int:
         if (map.src_start + map.range) >= obj and map.src_start <= obj:
             return (map.dest_start - map.src_start) + obj
 
