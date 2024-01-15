@@ -2,10 +2,6 @@ class Map:
     def __init__(self):
         self.dest_start = None
         self.src_start = None
-        self.range = None
-
-        self.dest_list = []
-        self.src_list = []
 
 
 def line_to_list_of_map_ranges(line):
@@ -67,7 +63,7 @@ with open("input.txt", "r") as input_file:
     seeds = list(filter(("").__ne__, seeds))
     seeds = [int(i) for i in seeds]
 
-    #Making The Maps
+    # Making The Maps
     seed_soil = line_to_list_of_map_ranges(lines[2])
     soil_fertilizer = line_to_list_of_map_ranges(lines[3])
     fertilizer_water = line_to_list_of_map_ranges(lines[4])
@@ -76,7 +72,7 @@ with open("input.txt", "r") as input_file:
     temp_humidity = line_to_list_of_map_ranges(lines[7])
     humidity_location = line_to_list_of_map_ranges(lines[8])
 
-    #Making The List of Mapped Destinations
+    # Making The List of Mapped Destinations
     list_of_soils = map_src_list_to_dest_list(seeds, seed_soil)
     list_of_fertilizers = map_src_list_to_dest_list(list_of_soils, soil_fertilizer)
     list_of_waters = map_src_list_to_dest_list(list_of_fertilizers, fertilizer_water)
