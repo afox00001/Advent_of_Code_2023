@@ -7,21 +7,12 @@ class Map:
         self.dest_list = []
         self.src_list = []
 
-    def enumerate_lists_from_ranges(self):
-        pass
-
-
-for i in range(0, 10):
-    print(i)
-
 
 def line_to_list_of_map_ranges(line):
-    # print(line)
     line = line.split(" ")
     list_of_maps = []
     i = 0
     map = Map()
-    # print(line)
     for arg in line:
         if arg == "" or arg == "\n" or arg == " ":
             continue
@@ -39,6 +30,27 @@ def line_to_list_of_map_ranges(line):
     return list_of_maps
 
 
+def get_destination_from_map_and_obj(map, obj):
+    if (map.src_start + map.range) >= obj and map.src_start <= obj:
+        return (map.dest_start - map.src_start) + obj
+
+
+def map_src_list_to_dest_list(src_list, maps):
+    dest_list = []
+    for src_item in src_list:
+        for map in maps:
+            dest = None
+            dest_check = get_destination_from_map_and_obj(map, src_item)
+            if dest_check is not None:
+                dest = dest_check
+                break
+        if dest is not None:
+            dest_list.append(dest)
+        else:
+            dest_list.append(src_item)
+    return dest_list
+
+
 with open("input.txt", "r") as input_file:
     input_text = input_file.read()
     lines = []
@@ -50,10 +62,12 @@ with open("input.txt", "r") as input_file:
             elif y == " " or y == "\n":
                 new_line += " "
         lines.append(new_line)
-        # print(new_line)
-        # print()
-    # print(lines)
-    seeds = line_to_list_of_map_ranges(lines[1])
+
+    seeds = lines[1].split(" ")
+    seeds = list(filter(("").__ne__, seeds))
+    seeds = [int(i) for i in seeds]
+
+    #Making The Maps
     seed_soil = line_to_list_of_map_ranges(lines[2])
     soil_fertilizer = line_to_list_of_map_ranges(lines[3])
     fertilizer_water = line_to_list_of_map_ranges(lines[4])
@@ -62,4 +76,13 @@ with open("input.txt", "r") as input_file:
     temp_humidity = line_to_list_of_map_ranges(lines[7])
     humidity_location = line_to_list_of_map_ranges(lines[8])
 
-    print(seeds[0].dest_start)
+    #Making The List of Mapped Destinations
+    list_of_soils = map_src_list_to_dest_list(seeds, seed_soil)
+    list_of_fertilizers = map_src_list_to_dest_list(list_of_soils, soil_fertilizer)
+    list_of_waters = map_src_list_to_dest_list(list_of_fertilizers, fertilizer_water)
+    list_of_lights = map_src_list_to_dest_list(list_of_waters, water_light)
+    list_of_temps = map_src_list_to_dest_list(list_of_lights, light_temp)
+    list_of_humidity = map_src_list_to_dest_list(list_of_temps, temp_humidity)
+    list_of_locations = map_src_list_to_dest_list(list_of_humidity, humidity_location)
+
+    print(min(list_of_locations))
