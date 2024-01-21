@@ -30,6 +30,5 @@ with open("input.txt", "r") as input_file:
 
     product = 1
     for i in list_of_ways_to_win:
-        print(i)
         product *= i
     print(product)
