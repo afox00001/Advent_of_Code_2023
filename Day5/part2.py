@@ -1,4 +1,8 @@
-from Map import line_to_list_of_map_ranges, map_src_list_to_dest_list, Map
+from Map import seeds_to_locations
+import numpy
+from threading import Thread
+
+
 def remove_overlap(ranges):
     result = []
     current_start = -1
@@ -8,7 +12,7 @@ def remove_overlap(ranges):
         if start > current_stop:
             # this segment starts after the last segment stops
             # just add a new segment
-            result.append( (start, stop) )
+            result.append((start, stop))
             current_start, current_stop = start, stop
         else:
             # segments overlap, replace
@@ -17,6 +21,8 @@ def remove_overlap(ranges):
             current_stop = max(current_stop, stop)
 
     return result
+
+
 if __name__ == "__main__":
     with open("input.txt", "r") as input_file:
         input_text = input_file.read()
@@ -46,34 +52,25 @@ if __name__ == "__main__":
                 i = 0
                 continue
             i += 1
-        print(list_of_seed_ranges)
-        print(remove_overlap(list_of_seed_ranges))
-        list_of_seed_ranges = remove_overlap(list_of_seed_ranges)
-        # Making The Maps
-        seed_soil = line_to_list_of_map_ranges(lines[2])
-        soil_fertilizer = line_to_list_of_map_ranges(lines[3])
-        fertilizer_water = line_to_list_of_map_ranges(lines[4])
-        water_light = line_to_list_of_map_ranges(lines[5])
-        light_temp = line_to_list_of_map_ranges(lines[6])
-        temp_humidity = line_to_list_of_map_ranges(lines[7])
-        humidity_location = line_to_list_of_map_ranges(lines[8])
+        # print(list_of_seed_ranges)
 
-        min_location = None
-        for seed_range in list_of_seed_ranges:
-            seeds = range(seed_range[0], seed_range[1])
+        list_of_min_locations = []
+
+
+        def process_seed_range(seed_range: iter):
+            min_location = 999999999999999999999
+            seeds = numpy.arange(seed_range[0], seed_range[1], 1)
             # Making The List of Mapped Destinations
-            list_of_soils = map_src_list_to_dest_list(seeds, seed_soil)
-            list_of_fertilizers = map_src_list_to_dest_list(list_of_soils, soil_fertilizer)
-            list_of_waters = map_src_list_to_dest_list(list_of_fertilizers, fertilizer_water)
-            list_of_lights = map_src_list_to_dest_list(list_of_waters, water_light)
-            list_of_temps = map_src_list_to_dest_list(list_of_lights, light_temp)
-            list_of_humidity = map_src_list_to_dest_list(list_of_temps, temp_humidity)
-            list_of_locations = map_src_list_to_dest_list(list_of_humidity, humidity_location)
-
-            if min_location is None:
-                min_location = min(list_of_locations)
-            elif min(list_of_locations) < min_location:
-                min_location = min(list_of_locations)
+            for i in seeds_to_locations(seeds, lines):
+                if i < min_location:
+                    min_location = i
+            seeds = []
             print(f"BATCH MIN LOCATION: {min_location}")
+            list_of_min_locations.append(min_location)
 
-        print(min_location)
+
+        threads = [Thread(target=process_seed_range, args=[i]) for i in list_of_seed_ranges]
+        [t.start() for t in threads]
+        [t.join() for t in threads]
+        print()
+        print(f"RESULTS: {min(list_of_min_locations)}")
