@@ -17,6 +17,7 @@ with open("input.txt", "r") as input_file:
         distances_str += distance
     greatest_distance = int(distances_str)
 
+
     number_of_ways_to_win = 0
     for speed in range(times + 1):
         distance = (times - speed) * speed
