@@ -90,8 +90,7 @@ def is_two_pair(str_obj):
     for card in duplicates:
         if duplicates[card] == 2:
             return True
-        else:
-            return False
+    return False
 
 
 def is_pair(str_obj):
