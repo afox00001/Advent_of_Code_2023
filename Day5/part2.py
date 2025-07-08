@@ -52,8 +52,6 @@ if __name__ == "__main__":
                 i = 0
                 continue
             i += 1
-        # print(list_of_seed_ranges)
-
         list_of_min_locations = []
 
 
