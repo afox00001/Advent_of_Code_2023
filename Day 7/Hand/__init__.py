@@ -41,11 +41,15 @@ class Hand:
             winner = self.settle_tie(other)
             return winner == other  # If other wins the tie, self < other
 
+    def __repr__(self):
+        return f"Hand({self.cards}, {self.bet}, {self.hand_type.name})"
+
     def is_two_pair(self):
         return list(self.get_card_counts().values()).count(2) == 2  # If there are 2 pairs in the hand
 
     def is_full_house(self):
-        return self.has_n_of_a_kind(2) and self.has_n_of_a_kind(3)  # If has a pair, AND a 3 of a kind
+        counts = sorted(self.get_card_counts().values())
+        return counts == [2, 3] # If has a pair, and a 3 of a kind in the hand
 
     def has_n_of_a_kind(self, n):
         return n in self.get_card_counts().values()  # if there is a set of cards with n duplicates in the hand
@@ -54,15 +58,9 @@ class Hand:
         return Counter(self.cards)
 
     def settle_tie(self, hand2):
-        for i, card1 in enumerate(self.cards):
-            card2 = card_to_number(hand2.cards[i])
-            card1 = card_to_number(card1)
-            if card1 > card2:
-                return self
-            elif card1 < card2:
-                return hand2
-        else:
-            return self  # Default to "this" hand (self) if self and hand2 are truly the same
+        self_nums = [card_to_number(c) for c in self.cards]
+        other_nums = [card_to_number(c) for c in hand2.cards]
+        return self if self_nums > other_nums else hand2
 
 
 def card_to_number(card):

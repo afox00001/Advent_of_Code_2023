@@ -5,7 +5,7 @@ if __name__ == "__main__":
     with open("input.txt") as file:
         for line in file:
             parts = line.strip().split()
-            cards = list(parts[0])  # Converts "2345K" into ['2','3','4','5','K']
+            cards = list(parts[0].strip())
             bet = int(parts[1])
             hands.append(Hand(cards, bet))
     hands.sort()
