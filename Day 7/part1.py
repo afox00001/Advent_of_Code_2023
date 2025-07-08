@@ -141,7 +141,9 @@ def settle_tie(hand1, hand2):
 hands = []
 with open("input.txt") as file:
     for line in file.readlines():
-        hands.append(Hand(line.split(" ")[0], int(line.split(" ")[1])
+        cards = line.split(" ")[0]
+        bet = int(line.split(" ")[1]
+        hands.append(Hand(cards, bet)
 sort_hands(hands)
 
 sum = 0
