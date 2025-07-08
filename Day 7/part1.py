@@ -149,6 +149,4 @@ sort_hands(hands)
 sum = 0
 for i, hand in enumerate(hands):
     sum += hand.bet * (i + 1)
-    i += 1
-
 print(f"Sum: {sum}")
