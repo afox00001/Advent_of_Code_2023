@@ -1,26 +1,14 @@
-with open("input.txt", "r") as input_file:
-    input_file_lines = input_file.readlines()
+if __name__ == '__main__':
+    with open("input.txt", "r") as file:
+        lines = [line.split(":")[1].replace(" ", "").strip() for line in file]
 
-    lines = []
-    for line in input_file_lines:
-        lines.append(list(filter("".__ne__, line.split(":")[1].replace("\n", "").replace(" ", ""))))
+    time = int(lines[0])
+    distance_record = int(lines[1])
 
-    times_str = ""
-    distances_str = ""
+    ways_to_win = 0
+    for speed in range(time + 1):
+        travel_distance = speed * (time - speed)
+        if travel_distance > distance_record:
+            ways_to_win += 1
 
-    times = []
-    distances = []
-    for time in lines[0]:
-        times_str += time
-    times = int(times_str)
-    for distance in lines[1]:
-        distances_str += distance
-    greatest_distance = int(distances_str)
-
-
-    number_of_ways_to_win = 0
-    for speed in range(times + 1):
-        distance = (times - speed) * speed
-        if distance > greatest_distance:
-            number_of_ways_to_win += 1
-    print(number_of_ways_to_win)
+    print(ways_to_win)
