@@ -146,7 +146,7 @@ sort_hands(cards_arr)
 i = 0
 sum = 0
 for hand in cards_arr:
-    sum += hand.bet * i+1
+    sum += hand.bet * (i + 1)
     i += 1
 
 print(f"Sum: {sum}")
