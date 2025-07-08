@@ -31,24 +31,24 @@ class Hand:
         else:
             self.hand_type = HandType.HIGH_CARD
 
-    def __lt__(self, other):
-        if self.hand_type != other.hand_type:
-            return self.hand_type > other.hand_type  # Higher hand_type = stronger = comes first
-        else:
-            winner = self.settle_tie(other)
-            return winner == other  # If other wins the tie, self < other
-
     def __eq__(self, other):
         return self.hand_type == other.hand_type and self.cards == other.cards
 
+    def __lt__(self, other):
+        if self.hand_type != other.hand_type:  # If the hand types are not the same
+            return self.hand_type > other.hand_type  # Higher hand_type = stronger = comes first
+        else:  # If they are the same, settle the tie
+            winner = self.settle_tie(other)
+            return winner == other  # If other wins the tie, self < other
+
     def is_two_pair(self):
-        return list(self.get_card_counts().values()).count(2) == 2 # If there are 2 pairs in the hand
+        return list(self.get_card_counts().values()).count(2) == 2  # If there are 2 pairs in the hand
 
     def is_full_house(self):
         return self.has_n_of_a_kind(2) and self.has_n_of_a_kind(3)  # If has a pair, AND a 3 of a kind
 
     def has_n_of_a_kind(self, n):
-        return n in self.get_card_counts().values()
+        return n in self.get_card_counts().values()  # if there is a set of cards with n duplicates in the hand
 
     def get_card_counts(self):
         return Counter(self.cards)
@@ -61,18 +61,19 @@ class Hand:
                 return self
             elif card1 < card2:
                 return hand2
-        return self # Default to "this" hand (self) if self and hand2 are truly the same
+        return self  # Default to "this" hand (self) if self and hand2 are truly the same
+
 
 def card_to_number(card):
     face_cards = {'A': 14, 'K': 13, 'Q': 12, 'J': 11, 'T': 10}
-    if isinstance(card, int): # If it's just a number card then it can just return the value
-        return card
-    if isinstance(card, str): # Otherwise, it will find out what value this face card (and 10) should be...
+    if isinstance(card, int):  # If it's just a number card then it can just return the value as an int
+        return int(card)
+    if isinstance(card, str):  # Otherwise, it will find out what value this face card (and 10) should be...
         card = card.upper().strip()
         if card in face_cards:
-            return face_cards[card]
-        elif card.isdigit():
+            return face_cards[card] # Pull the number value for the face card from the face_cards dict
+        elif card.isdigit(): # This really should never get called, but is here just in case
             num = int(card)
             if 2 <= num <= 9:
                 return num
-    raise ValueError(f"Invalid card value: {card}") # If it fails at that, raise an error
+    raise ValueError(f"Invalid card value: {card}")  # If it fails at that, raise an error
