@@ -66,7 +66,7 @@ def is_five_of_a_kind(str_obj):
     for card in duplicates:
         if duplicates[card] == 5:
             return True
-        return False
+    return False
 
 
 def is_four_of_a_kind(str_obj):
