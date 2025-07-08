@@ -58,11 +58,11 @@ if __name__ == "__main__":
 
 
         def process_seed_range(seed_range: iter):
-            min_location = 999999999999999999999
+            min_location = None
             seeds = numpy.arange(seed_range[0], seed_range[1], 1)
             # Making The List of Mapped Destinations
             for i in seeds_to_locations(seeds, lines):
-                if i < min_location:
+                if i < min_location or i = None:
                     min_location = i
             seeds = []
             print(f"BATCH MIN LOCATION: {min_location}")
