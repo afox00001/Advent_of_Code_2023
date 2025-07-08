@@ -19,7 +19,6 @@ def remove_overlap(ranges):
             result[-1] = (current_start, stop)
             # current_start already guaranteed to be lower
             current_stop = max(current_stop, stop)
-
     return result
 
 
