@@ -137,13 +137,10 @@ def settle_tie(hand1, hand2):
         elif card_to_number(card1) < card_to_number(card2):
             return hand2
 
-lines_parsed = {}
+cards_arr = []
 with open("input.txt") as file:
     for line in file.readlines():
-        lines_parsed[line.split(" ")[0]] = line.split(" ")[1]
-cards_arr = []
-for hand in lines_parsed:
-    cards_arr.append(Hand(hand, int(lines_parsed[hand])))
+        cards_arr.append(Hand(line.split(" ")[0], int(line.split(" ")[1])
 sort_hands(cards_arr)
 
 i = 1
