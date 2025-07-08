@@ -57,13 +57,13 @@ class Hand:
         return False
 
     def number_of_duplicate_cards(self):
-        char_count_dict = {}
-        for char in self.cards:
-            if char in char_count_dict:
-                char_count_dict[char] += 1
+        card_occurrences = {}
+        for card in self.cards:
+            if card in card_occurrences:
+                card_occurrences[card] += 1
             else:
-                char_count_dict[char] = 1
-        return char_count_dict
+                card_occurrences[card] = 1
+        return card_occurrences
 
 
 def card_to_number(card):
