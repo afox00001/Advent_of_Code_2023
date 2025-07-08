@@ -99,13 +99,10 @@ def is_pair(str_obj):
     number_of_pairs = 0
     for card in duplicates:
         if duplicates[card] == 2:
-            number_of_pairs += 1
-        elif duplicates[card] > 2:
-            return False
-
-    return True if number_of_pairs == 1 else False
-
-
+            return True
+    return False
+    
+    
 def contains_pair(str_obj):
     duplicates = number_of_duplicates(str_obj)
     for card in duplicates:
