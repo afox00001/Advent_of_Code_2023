@@ -130,11 +130,12 @@ def card_to_number(card):
 
 
 def settle_tie(hand1, hand2):
-    for index, card1 in enumerate(hand1):
-        card2 = hand2[index]
-        if card_to_number(card1) > card_to_number(card2):
+    for i, card1 in enumerate(hand1):
+        card2 = card_to_number(hand2[i])
+        card1 = card_to_number(card1)
+        if card1 > card2:
             return hand1
-        elif card_to_number(card1) < card_to_number(card2):
+        elif card1 < card2:
             return hand2
 
 hands = []
@@ -143,9 +144,8 @@ with open("input.txt") as file:
         hands.append(Hand(line.split(" ")[0], int(line.split(" ")[1])
 sort_hands(hands)
 
-i = 0
 sum = 0
-for hand in hands:
+for i, hand in enumerate(hands):
     sum += hand.bet * (i + 1)
     i += 1
 
