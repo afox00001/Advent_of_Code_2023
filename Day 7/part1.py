@@ -46,7 +46,6 @@ def sort_hands(hands):
                 if hand1.cards == tie_breaker:
                     swapped = True
                     hands[j], hands[j + 1] = hands[j + 1], hands[j]
-
         if not swapped:
             return
 
