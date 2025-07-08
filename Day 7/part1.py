@@ -1,9 +1,3 @@
-cards = {}
-with open("input.txt") as file:
-    for line in file.readlines():
-        cards[line.split(" ")[0]] = line.split(" ")[1]
-
-
 class HandType:
     def __init__(self):
         self.five_of_a_kind = 1
@@ -149,11 +143,15 @@ def settle_tie(hand1, hand2):
         elif card_to_number(card1) < card_to_number(card2):
             return hand2
 
-
+cards_raw = {}
+with open("input.txt") as file:
+    for line in file.readlines():
+        cards_raw[line.split(" ")[0]] = line.split(" ")[1]
 cards_arr = []
 for hand in cards:
-    cards_arr.append(Hand(hand, int(cards[hand])))
+    cards_arr.append(Hand(hand, int(cards_raw[hand])))
 sort_hands(cards_arr)
+
 i = 1
 sum = 0
 for hand in cards_arr:
