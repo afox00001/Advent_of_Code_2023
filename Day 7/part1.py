@@ -143,10 +143,10 @@ with open("input.txt") as file:
         cards_arr.append(Hand(line.split(" ")[0], int(line.split(" ")[1])
 sort_hands(cards_arr)
 
-i = 1
+i = 0
 sum = 0
 for hand in cards_arr:
-    sum += hand.bet * i
+    sum += hand.bet * i+1
     i += 1
 
 print(f"Sum: {sum}")
