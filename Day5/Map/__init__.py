@@ -93,27 +93,15 @@ def seeds_to_locations(seeds: iter, lines: iter) -> iter:
     for seed in seeds:
         soil = maps_and_src_to_dest(seed, seed_soil)
         fertilizer = maps_and_src_to_dest(soil, soil_fertilizer)
-
         soil = []
-
         water = maps_and_src_to_dest(fertilizer, fertilizer_water)
-
         fertilizer = []
-
         light = maps_and_src_to_dest(water, water_light)
-
         water = []
-
         temp = maps_and_src_to_dest(light, light_temp)
-
         light = []
-
         humidity = maps_and_src_to_dest(temp, temp_humidity)
-
         temp = []
-
         yield maps_and_src_to_dest(humidity, humidity_location)
-
         humidity = []
-
-
+        
