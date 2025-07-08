@@ -125,8 +125,7 @@ def card_to_number(card):
         return 11
     elif card == "T":
         return 10
-    else:
-        return int(card)
+    return int(card)
 
 
 def settle_tie(hand1, hand2):
