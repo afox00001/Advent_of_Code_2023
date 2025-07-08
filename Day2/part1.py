@@ -1,39 +1,43 @@
 if __name__ == "__main__":
 
-    game_ids_possible = 0
+    max_red = 12
+    max_green = 13
+    max_blue = 14
 
-    number_of_red_cubes = 12
-    number_of_green_cubes = 13
-    number_of_blue_cubes = 14
+    total_possible_game_ids = 0
+
     with open("input.txt", "r") as inputFile:
-        for i in inputFile.readlines():
-            game_id = int(i.split("Game")[1].split(":")[0].replace(" ", ""))
-            chosen_cubes = i.split(":")[1].split(";")
-            cube = ""
-            is_game_possible = True
-            for current_draw_selection in chosen_cubes:
-                red_cube_for_this_selection = 0
-                green_cube_for_this_selection = 0
-                blue_cube_for_this_selection = 0
+        for line in inputFile:
+            # Parse Game ID
+            game_id = int(line.split("Game")[1].split(":")[0].strip())
 
-                current_draw_selection = current_draw_selection.replace("\n", "")
-                if "," in current_draw_selection:
-                    cube = current_draw_selection.split(",")
-                else:
-                    cube = current_draw_selection
+            # Get all draw sections
+            draw_sections = line.split(":")[1].split(";")
 
-                for cube_color in cube:
-                    if "red" in cube_color:
-                        red_cube_for_this_selection = int(cube_color.split("red")[0].replace(" ", ""))
-                    elif "green" in cube_color:
-                        green_cube_for_this_selection = int(cube_color.split("green")[0].replace(" ", ""))
-                    elif "blue" in cube_color:
-                        blue_cube_for_this_selection = int(cube_color.split("blue")[0].replace(" ", ""))
-                    if red_cube_for_this_selection > number_of_red_cubes or green_cube_for_this_selection > number_of_green_cubes or blue_cube_for_this_selection > number_of_blue_cubes:
-                        is_game_possible = False
-                        break
-            if not is_game_possible:
-                continue
-            else:
-                game_ids_possible += game_id
-    print(game_ids_possible)
+            is_possible = True
+
+            for draw in draw_sections:
+                # Reset per draw
+                red = green = blue = 0
+
+                # Split into individual cube counts
+                cube_parts = draw.strip().split(",")
+
+                for part in cube_parts:
+                    part = part.strip()
+                    if "red" in part:
+                        red += int(part.replace("red", "").strip())
+                    elif "green" in part:
+                        green += int(part.replace("green", "").strip())
+                    elif "blue" in part:
+                        blue += int(part.replace("blue", "").strip())
+
+                # Check limits
+                if red > max_red or green > max_green or blue > max_blue:
+                    is_possible = False
+                    break
+
+            if is_possible:
+                total_possible_game_ids += game_id
+
+    print(total_possible_game_ids)

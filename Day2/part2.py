@@ -1,24 +1,29 @@
 if __name__ == "__main__":
-    def search_for_minimum_color(color: str, game_to_search) -> int:
-        if color in game_to_search:
-            color_cubes = []
-            color_cubes_text_array = game_to_search.split(":")[1].split(color)
-            color_cubes_text_array.pop()
-            for i in color_cubes_text_array:
-                color_cubes.append(int(i.split(" ")[-2]))
-            return max(color_cubes)
+
+    def max_color_in_game(game_text: str, color: str) -> int:
+        max_found = 0
+        # Split all draws
+        draws = game_text.split(":")[1].split(";")
+        for draw in draws:
+            parts = draw.strip().split(",")
+            for part in parts:
+                if color in part:
+                    try:
+                        value = int(part.strip().split(" ")[0])
+                        max_found = max(max_found, value)
+                    except (ValueError, IndexError):
+                        pass  # Skip malformed entries
+        return max_found
 
 
-    sum_of_minimum_set_of_cubes = 0
+    total_power = 0
 
     with open("input.txt", "r") as inputFile:
-        for game in inputFile.readlines():
-            game_id = int(game.split("Game")[1].split(":")[0].replace(" ", ""))
+        for game in inputFile:
+            red = max_color_in_game(game, "red")
+            green = max_color_in_game(game, "green")
+            blue = max_color_in_game(game, "blue")
 
-            minimum_red_cubes = search_for_minimum_color("red", game)
-            minimum_green_cubes = search_for_minimum_color("green", game)
-            minimum_blue_cubes = search_for_minimum_color("blue", game)
+            total_power += red * green * blue
 
-            sum_of_minimum_set_of_cubes += (minimum_red_cubes * minimum_green_cubes * minimum_blue_cubes)
-
-        print(sum_of_minimum_set_of_cubes)
+    print(total_power)

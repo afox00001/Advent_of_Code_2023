@@ -2,6 +2,7 @@ if __name__ == "__main__":
     number_words = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
     word_to_digit = {word: str(i + 1) for i, word in enumerate(number_words)}
 
+
     def find_all(a_str, sub):
         start = 0
         while True:
@@ -10,6 +11,7 @@ if __name__ == "__main__":
                 return
             yield start
             start += len(sub)
+
 
     total = 0
     with open("input.txt", "r") as inputFile:
