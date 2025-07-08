@@ -140,7 +140,7 @@ hands = []
 with open("input.txt") as file:
     for line in file.readlines():
         cards = line.split(" ")[0]
-        bet = int(line.split(" ")[1]
+        bet = int(line.split(" ")[1])
         hands.append(Hand(cards, bet)
 sort_hands(hands)
 
