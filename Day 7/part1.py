@@ -148,7 +148,7 @@ with open("input.txt") as file:
     for line in file.readlines():
         cards_raw[line.split(" ")[0]] = line.split(" ")[1]
 cards_arr = []
-for hand in cards:
+for hand in cards_raw:
     cards_arr.append(Hand(hand, int(cards_raw[hand])))
 sort_hands(cards_arr)
 
