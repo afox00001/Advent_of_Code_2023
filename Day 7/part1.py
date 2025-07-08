@@ -2,13 +2,14 @@ from Hand import *
 
 hands = []
 with open("input.txt") as file:
-    for line in file.readlines():
-        cards = line.split(" ")[0]
-        bet = int(line.split(" ")[1])
+    for line in file:
+        parts = line.strip().split()
+        cards = list(parts[0])  # Converts "2345K" into ['2','3','4','5','K']
+        bet = int(parts[1])
         hands.append(Hand(cards, bet))
 hands.sort()
 
-sum = 0
+total = 0
 for i, hand in enumerate(hands):
-    sum += hand.bet * (i + 1)
-print(f"Sum: {sum}")
+    total += hand.bet * (i + 1)
+print(f"Sum: {total}")
