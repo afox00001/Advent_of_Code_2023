@@ -61,7 +61,8 @@ class Hand:
                 return self
             elif card1 < card2:
                 return hand2
-        return self  # Default to "this" hand (self) if self and hand2 are truly the same
+        else:
+            return self  # Default to "this" hand (self) if self and hand2 are truly the same
 
 
 def card_to_number(card):
