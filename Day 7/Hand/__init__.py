@@ -42,12 +42,7 @@ class Hand:
         return self.hand_type == other.hand_type and self.cards == other.cards
 
     def is_two_pair(self):
-        duplicates = self.get_card_counts()
-        number_of_pairs = 0
-        for card in duplicates:
-            if duplicates[card] == 2:
-                number_of_pairs += 1
-        return number_of_pairs == 2
+        return list(self.get_card_counts().values()).count(2) == 2 # If there are 2 pairs in the hand
 
     def is_full_house(self):
         return self.has_n_of_a_kind(2) and self.has_n_of_a_kind(3)  # If has a pair, AND a 3 of a kind
@@ -70,7 +65,7 @@ class Hand:
 
 def card_to_number(card):
     face_cards = {'A': 14, 'K': 13, 'Q': 12, 'J': 11, 'T': 10}
-    if isinstance(card, int): # If its just a number card then it can just return the value
+    if isinstance(card, int): # If it's just a number card then it can just return the value
         return card
     if isinstance(card, str): # Otherwise, it will find out what value this face card (and 10) should be...
         card = card.upper().strip()
