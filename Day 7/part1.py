@@ -87,13 +87,11 @@ def is_three_of_a_kind(str_obj):
 
 def is_two_pair(str_obj):
     duplicates = number_of_duplicates(str_obj)
-    number_of_pairs = 0
     for card in duplicates:
         if duplicates[card] == 2:
-            number_of_pairs += 1
-        elif duplicates[card] > 2:
+            return True
+        else:
             return False
-    return True if number_of_pairs == 2 else False
 
 
 def is_pair(str_obj):
