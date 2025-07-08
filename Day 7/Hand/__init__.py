@@ -13,17 +13,17 @@ class Hand:
     def __init__(self, cards, bet):
         self.cards = cards
         self.bet = bet
-        if self.is_five_of_a_kind():
+        if self.has_n_of_a_kind(5):
             self.hand_type = HandType().five_of_a_kind
-        elif self.is_four_of_a_kind():
+        elif self.has_n_of_a_kind(4):
             self.hand_type = HandType().four_of_a_kind
         elif self.is_full_house():
             self.hand_type = HandType().full_house
-        elif self.is_three_of_a_kind():
+        elif self.has_n_of_a_kind(3):
             self.hand_type = HandType().three_of_a_kind
         elif self.is_two_pair():
             self.hand_type = HandType().two_pair
-        elif self.is_pair():
+        elif self.has_n_of_a_kind(2):
             self.hand_type = HandType().pair
         else:
             self.hand_type = HandType().high_card
@@ -38,15 +38,6 @@ class Hand:
     def __eq__(self, other):
         return self.hand_type == other.hand_type and self.cards == other.cards
 
-    def is_five_of_a_kind(self):
-        return self.has_n_of_a_kind(5)
-
-    def is_four_of_a_kind(self):
-        return self.has_n_of_a_kind(4)
-
-    def is_three_of_a_kind(self):
-        return self.has_n_of_a_kind(3)
-
     def is_two_pair(self):
         duplicates = self.number_of_duplicate_cards()
         number_of_pairs = 0
@@ -55,11 +46,8 @@ class Hand:
                 number_of_pairs += 1
         return number_of_pairs == 2
 
-    def is_pair(self):
-        return self.has_n_of_a_kind(2)
-
     def is_full_house(self):
-        return self.is_pair() and self.is_three_of_a_kind()
+        return self.has_n_of_a_kind(2) and self.has_n_of_a_kind(3)  # If has a pair, AND a 3 of a kind
 
     def has_n_of_a_kind(self, n):
         duplicates = self.number_of_duplicate_cards()
