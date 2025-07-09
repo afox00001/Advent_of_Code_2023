@@ -9,7 +9,7 @@ def extrapolate_next_value(sequence):
     # Predict the next value by adding back up the pyramid
     predicted_value = 0
     for row in reversed(difference_rows):
-        predicted_value = row[0] - predicted_value
+        predicted_value = row[0] + predicted_value
     return predicted_value
 
 
