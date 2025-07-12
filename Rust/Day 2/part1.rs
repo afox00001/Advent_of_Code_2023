@@ -28,7 +28,6 @@ fn get_color(line: &str, color: &str) -> i32 {
                     .and_then(|s| s.parse::<i32>().ok());
 
                 if let Some(number) = number_of_said_colors {
-                    //println!("{} {}", color_segment, number);
                     return number;
                 } else {
                     println!("Failed to parse number from '{}'", color_segment);
