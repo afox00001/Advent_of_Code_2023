@@ -11,6 +11,7 @@ def extrapolate_next_value(sequence: iter, is_calculating_right_side_of_pyramid:
     # Predict the next value by adding back up the pyramid
     predicted_value = 0
     for row in reversed(build_difference_pyramid(sequence)):
+        print(row)
         if is_calculating_right_side_of_pyramid:
             predicted_value = row[0] + predicted_value
         else:
