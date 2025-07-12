@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
-const FILE_PATH: &str = "src/input.txt";
+const FILE_PATH: &str = "input.txt";
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 where
     P: AsRef<Path>,
@@ -40,7 +40,7 @@ fn main() {
             let new_digit: i32 = new_digit_as_string.parse().unwrap();
             sum += new_digit;
         }
-
         println!("Sum: {}", sum);
     }
+    std::io::stdin().read_line(&mut String::new()).unwrap(); //to quit the program from instantly closing
 }
