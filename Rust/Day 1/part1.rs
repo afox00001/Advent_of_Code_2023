@@ -46,5 +46,5 @@ fn main() {
         }
         println!("Sum: {}", sum);
     }
-    stdin().read_line(&mut String::new()).unwrap(); // stop the program from instantly closing
+    stdin().read_line(&mut String::new()).unwrap(); //stop the program from instantly closing
 }
