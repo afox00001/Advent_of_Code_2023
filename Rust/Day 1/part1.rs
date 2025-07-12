@@ -43,5 +43,5 @@ fn main() {
         }
         println!("Sum: {}", sum);
     }
-    std::io::stdin().read_line(&mut String::new()).unwrap(); //to quit the program from instantly closing
+    std::io::stdin().read_line(&mut String::new()).unwrap(); //to stop the program from instantly closing
 }
