@@ -1,14 +1,17 @@
 use std::fs::File;
+use std::io::stdin;
+use std::io::BufReader;
+use std::io::Lines;
 use std::io::{self, BufRead};
 use std::path::Path;
 
 const FILE_PATH: &str = "input.txt";
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
+fn read_lines<P>(filename: P) -> io::Result<Lines<BufReader<File>>>
 where
     P: AsRef<Path>,
 {
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
+    let file: File = File::open(filename)?;
+    Ok(BufReader::new(file).lines())
 }
 
 fn main() {
@@ -43,5 +46,5 @@ fn main() {
         }
         println!("Sum: {}", sum);
     }
-    std::io::stdin().read_line(&mut String::new()).unwrap(); //to stop the program from instantly closing
+    stdin().read_line(&mut String::new()).unwrap(); //stop the program from instantly closing
 }
