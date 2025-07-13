@@ -18,7 +18,7 @@ fn get_color(line: &str, color: &str) -> i32 {
     for pick in line.split(';') {
         for color_segment in pick.split(", ") {
             if color_segment.contains(color) {
-                let number_of_said_colors = color_segment
+                let number_of_said_colors: Option<i32> = color_segment
                     .split(color)
                     .nth(0)
                     .map(|s| s.trim())
