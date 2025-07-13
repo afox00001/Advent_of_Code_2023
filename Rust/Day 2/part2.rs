@@ -59,21 +59,15 @@ fn main() {
                 blue_cubes = get_color(formated_game_str, "blue");
                 green_cubes = get_color(formated_game_str, "green");
 
-                max_red_cubes = if red_cubes > max_red_cubes {
-                    red_cubes
-                } else {
-                    max_red_cubes
-                };
-                max_blue_cubes = if blue_cubes > max_blue_cubes {
-                    blue_cubes
-                } else {
-                    max_blue_cubes
-                };
-                max_green_cubes = if green_cubes > max_green_cubes {
-                    green_cubes
-                } else {
-                    max_green_cubes
-                };
+                if red_cubes > max_red_cubes {
+                    max_red_cubes = red_cubes;
+                }
+                if blue_cubes > max_blue_cubes {
+                    max_blue_cubes = blue_cubes;
+                }
+                if green_cubes > max_green_cubes {
+                    max_green_cubes = green_cubes;
+                }
             }
             let product: i32 = max_red_cubes * max_blue_cubes * max_green_cubes;
             sum += product;
