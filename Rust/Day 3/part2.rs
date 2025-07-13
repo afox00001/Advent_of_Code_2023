@@ -128,6 +128,6 @@ fn main() {
             sum += sum_of_parts_next_to_symbol(coord, &table);
         }
     }
-    println!("Sum: {}", sum);
+    println!("Sum of Gear Ratios: {}", sum);
     stdin().read_line(&mut String::new()).unwrap(); //stop the program from instantly closing
 }
