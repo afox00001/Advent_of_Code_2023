@@ -5,6 +5,7 @@ use std::io::BufReader;
 use std::io::Lines;
 use std::io::{self, BufRead};
 use std::path::Path;
+use std::str::SplitWhitespace;
 
 const FILE_PATH: &str = "input.txt";
 fn read_lines<P>(filename: P) -> io::Result<Lines<BufReader<File>>>
@@ -22,7 +23,7 @@ fn main() {
             let mut current_points_total: i32 = 0;
             let parts: Vec<&str> = line.split('|').collect();
             let winning_numbers: HashSet<&str> = parts[1].split_whitespace().collect();
-            let ticket_numbers = parts[0].split_whitespace();
+            let ticket_numbers: SplitWhitespace = parts[0].split_whitespace();
             for ticket_number in ticket_numbers {
                 if !winning_numbers.contains(ticket_number) {
                     continue;
