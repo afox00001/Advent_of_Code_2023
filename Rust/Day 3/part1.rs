@@ -72,7 +72,7 @@ fn sum_of_parts_next_to_symbol(symbol_coordinate: TableCoordinate, table: &Vec<V
     ];
 
     let mut seen_starts: HashSet<TableCoordinate> = HashSet::new();
-    let mut sum = 0;
+    let mut sum: i32 = 0;
 
     for (dx, dy) in directions.iter() {
         let new_x = symbol_coordinate.x as isize + dx;
