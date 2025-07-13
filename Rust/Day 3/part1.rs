@@ -7,6 +7,17 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 const FILE_PATH: &str = "input.txt";
+#[derive(Debug, Clone, Hash, Eq, PartialEq)]
+struct TableCoordinate {
+    x: usize,
+    y: usize,
+}
+
+impl TableCoordinate {
+    fn new(x: usize, y: usize) -> Self {
+        TableCoordinate { x, y }
+    }
+}
 fn read_lines<P>(filename: P) -> io::Result<Lines<BufReader<File>>>
 where
     P: AsRef<Path>,
@@ -21,17 +32,6 @@ fn is_symbol(check_str: &str) -> bool {
         "|", "\\", "/", ":", ";",
     ];
     SYMBOLS.contains(&check_str)
-}
-#[derive(Debug, Clone, Hash, Eq, PartialEq)]
-struct TableCoordinate {
-    x: usize,
-    y: usize,
-}
-
-impl TableCoordinate {
-    fn new(x: usize, y: usize) -> Self {
-        TableCoordinate { x, y }
-    }
 }
 fn get_full_number_from_char_in_table(
     start_coord: &TableCoordinate,
